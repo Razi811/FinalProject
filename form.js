@@ -1,4 +1,26 @@
+class taskManagerItems {
+    constructor (ID, taskName, description, assignedTo, dueDate, status) {
+        this._ID= taskManagerItems.incrementID();
+        this._Name= taskName;
+        this._description= description;
+        this._AssignedTo= assignedTo;
+        this._DueDate = dueDate;
+        this._taskStatusArray =['ToDo', 'In Progress', 'Review', 'Done'];
+        this._addTaskItems()
+    }
+    static incrementId() {
+        if (!this.latestId) {
+            this.latestId = 1;
+        } else {
+            this.latestId++;
+        }
+        return this.latestId;
+    }
 
+    addTask(){
+        this._taskArray.push(this)
+    }
+}
 
 
 
