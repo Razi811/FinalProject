@@ -30,6 +30,9 @@ class taskManagerItems {
         e.preventDefault();
         const taskItem = {
             content: e.target.elements.content
+            category: e.target.elements.category.value,
+            done: false,
+            createdAt: new Date().getTime()
         }
     })
 
@@ -78,12 +81,31 @@ editButton.innerHTML = 'Edit';
 deleteButton.innerHTML= 'Delete';
 
 label.appendChild(name);
-label.appendChild(input)
-label.appendChild(span)
-label.appendChild()
-label.appendChild()
-label.appendChild()
-label.appendChild()
+label.appendChild(input);
+label.appendChild(span);
+actions.appendChild(editButton);
+actions.appendChild(deleteButton);
+taskItemCard.appendChild(label);
+taskItemCard.appendChild(content);
+taskItemCard.appendChild(actions);
+
+taskItems.appendChild(taskItemCard);
+if (taskItem.done) {
+    taskItemCard.classList.add('done');
+}
+
+input.addEventListener('change', (e) => {
+    taskItem.done = e.target.checked;
+    localStorage.setItem('taskItems', JSON.stringify(taskItems));
+
+    if taskItem.done {
+        taskItemCard.classList.add('done');
+    } else {
+        taskItemCard.classList.remove('done');
+    }
+
+    displayTaskItems()
+})
 
 form.addEventListener('submit', e => {
     e.preventDefault();
