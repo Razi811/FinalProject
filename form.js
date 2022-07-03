@@ -19,7 +19,7 @@ class taskManagerItems {
     window.addEventListener('load', () => {
         taskItems= JSON.parse(localStorage.getItem('taskItems')) || [];
         const nameInput = document.querySelector('#name');
-        const username= localStorage,getItem('username') || '';
+        const username= localStorage.getItem('username') || '';
         nameInput.value = username;
         nameInput.addEventListener('change', e => {
             localStorage.setItem('username', e.target.value);
@@ -56,41 +56,41 @@ taskItems.forEach(taskItem => {
     const taskItemCard= document.createElement('div');
     taskItemCard.classList.add('taskItemCard');
 
-const form = document.getElementById('form');
-const name = document.createElement('name');
-const input = document.createElement('input');
-const span = document.createElement('span');
-const content = document.createElement('div')
-const actions = document.getElementById(this._taskStatusArray)
-const description = document.getElementById('description');
-const assignTo = document.createElement('assignTo');
-const dueDate = document.createElement('dueDate');
-const editButton = document.createElement('button');
-const deleteButton = document.createElement('button');
+    const form = document.getElementById('form');
+    const name = document.createElement('name');
+    const input = document.createElement('input');
+    const span = document.createElement('span');
+    const content = document.createElement('div')
+    const actions = document.getElementById(this._taskStatusArray)
+    const description = document.getElementById('description');
+    const assignedTo = document.createElement('assignedTo');
+    const dueDate = document.createElement('dueDate');
+    const editButton = document.createElement('button');
+    const deleteButton = document.createElement('button');
 
-input.type = 'checkbox';
-input.checked = taskItem.done;
-span.classList.add('bubble');
-content.classList.add('taskItem-content');
-actions.classList.add('actions');
-editButton.classList.add('edit');
-deleteButton.classList.add('delete');
+    input.type = 'checkbox';
+    input.checked = taskItem.done;
+    span.classList.add('bubble');
+    content.classList.add('taskItem-content');
+    actions.classList.add('actions');
+    editButton.classList.add('edit');
+    deleteButton.classList.add('delete');
 
-content.innerHTML = `< input type="text" value = "${taskItem.content} readonly>`;
-editButton.innerHTML = 'Edit';
-deleteButton.innerHTML= 'Delete';
+    content.innerHTML = `< input type="text" value = "${taskItem.content} readonly>`;
+    editButton.innerHTML = 'Edit';
+    deleteButton.innerHTML= 'Delete';
 
-label.appendChild(name);
-label.appendChild(input);
-label.appendChild(span);
-actions.appendChild(editButton);
-actions.appendChild(deleteButton);
-taskItemCard.appendChild(label);
-taskItemCard.appendChild(content);
-taskItemCard.appendChild(actions);
+    label.appendChild(name);
+    label.appendChild(input);
+    label.appendChild(span);
+    actions.appendChild(editButton);
+    actions.appendChild(deleteButton);
+    taskItemCard.appendChild(label);
+    taskItemCard.appendChild(content);
+    taskItemCard.appendChild(actions);
 
-taskItems.appendChild(taskItemCard);
-if (taskItem.done) {
+    taskItems.appendChild(taskItemCard);
+    if (taskItem.done) {
     taskItemCard.classList.add('done');
 }
 
@@ -119,13 +119,13 @@ form.addEventListener('click', e => {
     });
 });
 
-deleteButton.addEventListener('click', (e) => {
+    deleteButton.addEventListener('click', (e) => {
     taskItems = taskItems.filter(t => t !=taskItem);
     localStorage.setItem('taskItems', JSON.stringify(taskItems));
     displayTaskItems()
-    })
-}
-}
+        })
+    }
+};
 
 
 const setError = (element, message) => {
