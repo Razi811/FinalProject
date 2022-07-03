@@ -104,7 +104,7 @@ input.addEventListener('change', (e) => {
         taskItemCard.classList.remove('done');
     }
 
-    DisplayTaskItems()
+    displayTaskItems()
 })
 
 form.addEventListener('click', e => {
@@ -115,14 +115,14 @@ form.addEventListener('click', e => {
         input.setAttribute('readonly', true);
         taskItem.content = e.target.value;
         localStorage.setItem('taskItems', JSON.stringify(taskItems));
-        DisplayTaskItems()
+        displayTaskItems()
     });
 });
 
 deleteButton.addEventListener('click', (e) => {
     taskItems = taskItems.filter(t => t !=taskItem);
     localStorage.setItem('taskItems', JSON.stringify(taskItems));
-    DisplayTaskItems()
+    displayTaskItems()
 })
 
 const setError = (element, message) => {
