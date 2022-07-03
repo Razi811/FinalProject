@@ -104,14 +104,26 @@ input.addEventListener('change', (e) => {
         taskItemCard.classList.remove('done');
     }
 
-    displayTaskItems()
+    DisplayTaskItems()
 })
 
-form.addEventListener('submit', e => {
-    e.preventDefault();
-
-    validateInputs();
+form.addEventListener('click', e => {
+    const input = content.querySelector('input');
+    input.removeAttribute('readonly');
+    input.focus();
+    input.addEventListener('blur', (e) => {
+        input.setAttribute('readonly', true);
+        taskItem.content = e.target.value;
+        localStorage.setItem('taskItems', JSON.stringify(taskItems));
+        DisplayTaskItems()
+    });
 });
+
+deleteButton.addEventListener('click', (e) => {
+    taskItems = taskItems.filter(t => t !=taskItem);
+    localStorage.setItem('taskItems', JSON.stringify(taskItems));
+    DisplayTaskItems()
+})
 
 const setError = (element, message) => {
     const inputControl = element.parentElement;
