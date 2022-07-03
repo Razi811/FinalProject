@@ -123,7 +123,10 @@ deleteButton.addEventListener('click', (e) => {
     taskItems = taskItems.filter(t => t !=taskItem);
     localStorage.setItem('taskItems', JSON.stringify(taskItems));
     displayTaskItems()
-})
+    })
+}
+}
+
 
 const setError = (element, message) => {
     const inputControl = element.parentElement;
@@ -185,5 +188,4 @@ const validateInputs = () => {
 
 };
 
-}
 }
