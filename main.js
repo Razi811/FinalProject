@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let hours = timeDate.getHours() % 12;
     let minutes = timeDate.getMinutes();
+    let seconds = timeDate.getSeconds();
     let dayOrNight = '';
     
     if (hours.toString().length < 2) {
@@ -19,6 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
       minutes = '0' + minutes;
     }
 
+    if (seconds.toString().length < 2) {
+      seconds = '0' + seconds;
+    }
+
     if (timeDate.getHours() < 12) {
       dayOrNight = 'AM';
     } else {
@@ -27,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const today = days[timeDate.getDay()];
   
-    const clockOutput = hours + ' : ' + minutes + ' ' + dayOrNight;
+    const clockOutput = hours + ' : ' + minutes + ' : ' + seconds + ' ' + dayOrNight;
     const dateOutput = 'Looks like another ' + today + ' 😊 ';
   
     clock.textContent = clockOutput;
@@ -128,14 +133,20 @@ function flashDiv(text) {
   let btn = document.createElement("button");
   btn.innerHTML = "Done";
   btn.type = "submit";
+  btn.setAttribute("class", "btn");
   
-  btn.setAttribute("style", "text-align:centre; display:absolute; jastify-content: space-between;");
+  btn.setAttribute("style", "text-align:center; display:bottom; justify-content: space-between;");
 
   let btn2 = document.createElement("button");
   btn2.innerHTML = "Delete";
   btn2.type = "submit";
-  btn.setAttribute("style", "text-align:centre; display:absolute;");
-
+  btn2.setAttribute("class", "btn2");
+  btn.setAttribute("style", "text-align:bottom; display:absolute;");
+  btn2.addEventListener('click', e =>{
+      if (e.target.nodeName === 'BUTTON') {
+        e.target.parentNode.remove()
+      }
+  });
 
   div.appendChild(btn);
   div.appendChild(divTitle);
@@ -162,7 +173,7 @@ function flashDiv(text) {
   flashCards.appendChild(div);
 }
 
-  addcard.addEventListener("click", function () {
+  /*addcard.addEventListener("click", function () {
   let flashInfo = {
     title: title.value,
     description: description.value,
@@ -179,48 +190,87 @@ function flashDiv(text) {
   assignto.value = "";
   duedate.value = "";
   
-});
+});*/
 
 //button action//
 
 //End button action//
 
 //Form Validation//
+document.getElementById("addButton").addEventListener("click", actionForm())
 
-function actionForm()
+/*function checkValidation(){
+  if(actionForm() === true){
+    flashDiv();
+  }
+}*/
+
+function actionForm(event)
     {
     var title  =    document.getElementById('title'),
         description  =    document.getElementById('description'),
         assignto     =    document.getElementById('assignto'),
         duedate    =    document.getElementById('duedate')
         
-        if(title.value == "")
+        if(title.value == "" && title.value.length < 8)
         {
-         document.getElementById('p-title').textContent    = "Title Must be at least 8 characters";  
-         document.getElementById('title').style.border = "1px solid red";
+         document.getElementById('p-title').textContent= "Title Must be at least 8 characters";  
+         document.getElementById('title').style.border = "1px solid yellow";
+         console.log(event.target);
+          event.preventDefault();
+          /*return false*/
         }
-        if(description.value == "")
+        if(description.value == "" && description.value.length < 15)
         {
          document.getElementById('p-description').textContent = "Description Must be at least 15 characters";
-         document.getElementById('description').style.border = "1px solid red";
+         document.getElementById('description').style.border = "1px solid yellow";
+         console.log(event.target);
+          event.preventDefault(); 
+         /*return false*/
         }
          
         if(assignto.value == "")
         {
          document.getElementById('p-assignto').textContent = "Please provide the full name"; 
-         document.getElementById('assignto').style.border = "1px solid red";
+         document.getElementById('assignto').style.border = "1px solid yellow";
+          return false
         }
         
         
-        if(duedate.value == "")
+        if(duedate.value < 1)
         {
          document.getElementById('p-duedate').textContent = "Please select the due date";  
-         document.getElementById('duedate').style.border = "1px solid red";
+         document.getElementById('duedate').style.border = "1px solid yellow";
+         console.log(event.target);
+          event.preventDefault(); 
+         //return false
         }
+         //return true
+
+         addcard.addEventListener("click", function () {
+          let flashInfo = {
+            title: title.value,
+            description: description.value,
+            assignto: assignto.value,
+            duedate: duedate.value,
         
+          };
+        
+          contentArray.push(flashInfo);
+          localStorage.setItem("items", JSON.stringify(contentArray));
+          flashDiv(contentArray[contentArray.length - 1]);
+          title.value = "";
+          description.value = "";
+          assignto.value = "";
+          duedate.value = "";
+        
+        });
+    
     }    
     
-    
+    const submit= document.getElementById("submitButton")
+    submit.addEventListener("click", actionForm);
+
     function formBlur(input)
     {
         if(input.value != '')
@@ -233,19 +283,19 @@ function actionForm()
         if(title.value.length < 8 )
         {
           title.nextElementSibling.textContent = "8"; 
-          input.style.border =       "1px solid red";
+          input.style.border =       "1px solid yellow";
         }
         
         if(description.value.length < 15 )
         {
           description.nextElementSibling.textContent = "15"; 
-          input.style.border =              "1px solid red";
+          input.style.border =              "1px solid yellow";
         }
         
         if(input.value == '')
         {
           input.nextElementSibling.textContent = "Fill the fields";
-          input.style.border =                    '1px  solid red';
+          input.style.border =                    '1px  solid yellow';
         }
         
          
